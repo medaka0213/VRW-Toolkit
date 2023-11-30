@@ -10,7 +10,7 @@ VCCで導入可能なもの
 | --- | --- |
 | VRChat SDK - Base | 3.4.1 |
 | VRChat SDK - Worlds | 3.4.1 |
-| liltoon <vcc://vpm/addRepo?url=https://lilxyzw.github.io/vpm-repos/vpm.json>  | 1.4.1 |
+| liltoon https://lilxyzw.github.io/lilToon/#/  | 1.4.1 |
 | QVPen https://vpm.ureishi.net/install | 3.2.9 |
 
 UnityPackageのインポートが必要なもの
