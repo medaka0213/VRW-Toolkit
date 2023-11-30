@@ -68,7 +68,6 @@ jobs:
           prerelease: false
       # Notify to Discord
       - name: Notify to Discord
-        if: steps.check_update.outputs.changed == '1'
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
