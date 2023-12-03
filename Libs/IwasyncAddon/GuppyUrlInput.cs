@@ -11,7 +11,7 @@ public class GuppyUrlInput : UdonSharpBehaviour
 {
     public VRCUrlInputField addressInput;
     public UnityVideoPlayer slideSystem;
-    
+
 
     int rescentVideoIndex = 0;
     public GameObject inputField;
@@ -19,11 +19,13 @@ public class GuppyUrlInput : UdonSharpBehaviour
     [FoldoutGroup("Videos")]
     public string mode = "live";
 
-    [FoldoutGroup("Videos")] [ListView("VideoPlayer List")]
+    [FoldoutGroup("Videos")]
+    [ListView("VideoPlayer List")]
     public VideoController[] videoControllers;
-    [FoldoutGroup("Videos")] [ListView("VideoPlayer List")]
+    [FoldoutGroup("Videos")]
+    [ListView("VideoPlayer List")]
     public VideoCore[] videoCores;
-    
+
 
     void Start()
     {
@@ -37,7 +39,8 @@ public class GuppyUrlInput : UdonSharpBehaviour
         {
             //頭を追従
             var player = Networking.LocalPlayer;
-            if (player != null){
+            if (player != null)
+            {
                 var headData = player.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
                 transform.position = headData.position;
                 transform.rotation = headData.rotation;
@@ -55,7 +58,8 @@ public class GuppyUrlInput : UdonSharpBehaviour
         inputField.SetActive(false);
     }
 
-    int getVideoPlayerIndex(){
+    int getVideoPlayerIndex()
+    {
         // loop  VideoCore
         for (int i = 0; i < videoCores.Length; i++)
         {
@@ -67,16 +71,18 @@ public class GuppyUrlInput : UdonSharpBehaviour
         return -1;
     }
 
-    
-    public void LockVideo() {
+
+    public void LockVideo()
+    {
         foreach (var videoController in videoControllers)
         {
             videoController.TakeOwnership();
             videoController.LockOn();
-        } 
+        }
     }
 
-    public void UnlockVideo() {
+    public void UnlockVideo()
+    {
         foreach (var videoController in videoControllers)
         {
             videoController.TakeOwnership();
@@ -84,18 +90,24 @@ public class GuppyUrlInput : UdonSharpBehaviour
         }
     }
 
-    public void OnUrlInput(){
-        if(mode == "slide"){
+    public void OnUrlInput()
+    {
+        if (mode == "slide")
+        {
             string url = addressInput.GetUrl().Get();
             if (url.StartsWith("page"))
             {
-                int value = (int)float.Parse(url.Substring(4));
+                int value = 0;
+                int.TryParse(url.Substring(4), out value);
                 SetSlidePage(value);
             }
-            else {
+            else
+            {
                 OnSlideUpdate();
             }
-        }else{
+        }
+        else
+        {
             string url = addressInput.GetUrl().Get();
             if (url == "unlock")
             {
@@ -110,12 +122,14 @@ public class GuppyUrlInput : UdonSharpBehaviour
                 float value = float.Parse(url.Substring(3));
                 SetAllVideoTime(value);
             }
-            else {
+            else
+            {
                 uint _mode = uint.Parse("32");
                 if (mode != "live") _mode = uint.Parse("16");
 
                 int videoIndex = getVideoPlayerIndex();
-                if (videoIndex != -1){
+                if (videoIndex != -1)
+                {
                     VideoCore videoCore = videoCores[videoIndex];
                     videoCore.TakeOwnership();
                     videoCore.PlayURL(_mode, addressInput.GetUrl());
@@ -131,31 +145,35 @@ public class GuppyUrlInput : UdonSharpBehaviour
         //入力が終わったら非表示にする
         addressInput.SetUrl(VRCUrl.Empty);
         inputField.SetActive(false);
-    } 
-
-    public void OnSlideUpdate(){
-        slideSystem.TakeOwnership();
-        slideSystem.SetUrl(addressInput.GetUrl());
-        slideSystem.SetProgramVariable("slideIndex",0);
     }
 
-    public void SetVideoTime(VideoCore core, float seekTimeSeconds){
+    public void OnSlideUpdate()
+    {
+        slideSystem.TakeOwnership();
+        slideSystem.SetUrl(addressInput.GetUrl());
+        slideSystem.SetProgramVariable("slideIndex", 0);
+    }
+
+    public void SetVideoTime(VideoCore core, float seekTimeSeconds)
+    {
         core.TakeOwnership();
         core.clockTime = Networking.GetServerTimeInMilliseconds();
         core.Seek(seekTimeSeconds);
         core.RequestSerialization();
     }
 
-    public void SetAllVideoTime(float seekTimeSeconds){
+    public void SetAllVideoTime(float seekTimeSeconds)
+    {
         foreach (var videoCore in videoCores)
         {
             SetVideoTime(videoCore, seekTimeSeconds);
         }
     }
-    
-    public void SetSlidePage(int page){
+
+    public void SetSlidePage(int page)
+    {
         slideSystem.TakeOwnership();
-        slideSystem.SetProgramVariable("slideIndex",page);
+        slideSystem.SetProgramVariable("slideIndex", page);
         slideSystem.UpdateSeek();
     }
 }
