@@ -30,13 +30,13 @@ UnityPackageのインポートが必要なもの
 軌道モデルのライティングのために、レイヤーを追加する。
 参考: https://docs.unity3d.com/ja/2019.4/Manual/Layers.html
 
-Edit > Project Settings を開き、Tags and Layers を選択して、レイヤーを追加
+Edit > Project Settings を開き、Tags and Layers を選択して、レイヤーを追加<br>
 - User Layer 23: `Earth`
 - User Layer 24: `EarthRealScale`
 
 ![image](https://github.com/medaka0213/VRW-Toolkit/assets/36759068/6e459f7e-b5c6-4ade-8dd9-e71cbb256d09)
 
-シーンのDirectional Lightの設定
+シーンのDirectional Lightの設定<br>
 Culling Maskから`Earth` `EarthRealScale`を除外
 
 ![image](https://github.com/medaka0213/VRW-Toolkit/assets/36759068/1c5c9ed0-d824-4d0e-8501-86296b6fbf63)
