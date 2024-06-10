@@ -37,7 +37,7 @@ Edit > Project Settings を開き、Tags and Layers を選択して、レイヤ�
 ![image](https://github.com/medaka0213/VRW-Toolkit/assets/36759068/6e459f7e-b5c6-4ade-8dd9-e71cbb256d09)
 
 シーンのDirectional Lightの設定
-Culling Maskから`Earth``EarthRealScale`を除外
+Culling Maskから`Earth` `EarthRealScale`を除外
 
 ![image](https://github.com/medaka0213/VRW-Toolkit/assets/36759068/1c5c9ed0-d824-4d0e-8501-86296b6fbf63)
 
